@@ -1,8 +1,10 @@
 # INITIAL THOUGHT PROCESS
-# 1.) Parse text into two lists each containing a row
-# 2.) Sort the row
-# 3.) Get the absolute value of the difference between the corresponding value of the index
-# 4.) Add the differences
+"""
+1.) Parse text into two lists each containing a row
+2.) Sort the row
+3.) Get the absolute value of the difference between the corresponding value of the index
+4.) Add the differences
+"""
 
 # Imports
 from pathlib import Path
