@@ -35,7 +35,6 @@ for index, line in enumerate(grid):
         # print(f"Value ^ found in tuple {line} at row index {start_y} and column index {start_x}")
 
 seeking = True
-iteration = 0
 visited = 1
 currentLocation_x = start_x
 currentLocation_y = start_y
@@ -48,22 +47,37 @@ direction = up
 print(f"Grid Bounds are x: {len(grid[0])}, y:{len(grid)}")
 while seeking == True:
 
-    print(f"Current Location is {currentLocation_x},{currentLocation_y}")
+    print(f"Value at ({currentLocation_x},{currentLocation_y}) is: {grid[currentLocation_y][currentLocation_x]}")
 
+    # Check if current location is out of bounds
     if currentLocation_x < 0 or currentLocation_x >= len(grid[0]) or currentLocation_y < 0 or currentLocation_y >= len(grid):
         seeking = False
-    if grid[currentLocation_y][currentLocation_x] == '#':
+        break
+
+    # Calculate the next location
+    next_x = currentLocation_x + direction[1]
+    next_y = currentLocation_y + direction[0]
+
+    # Check if next location is out of bounds
+    if next_x < 0 or next_x >= len(grid[0]) or next_y < 0 or next_y >= len(grid):
+        print("Next location out of bounds. Stopping.")
+        seeking = False
+        break
+
+    if grid[next_y][next_x] == '#':
+        print(f"Hit Wall at ({next_x},{next_y}) is: {grid[next_y][next_x]} ")
         if direction == up:
             direction = right
         elif direction == right:
-            direction == down
+            direction = down
         elif direction == down:
-            direction == left
+            direction = left
         elif direction == left:
-            direction == up
-        print("Hit Wall")
-    currentLocation_x += direction[0]
-    currentLocation_y += direction[1]
+            direction = up
+        continue
+
+    currentLocation_x = next_x
+    currentLocation_y = next_y
     visited += 1
 
 print(f"Total Spots Visited: {visited}")
