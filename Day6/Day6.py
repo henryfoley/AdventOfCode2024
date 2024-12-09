@@ -39,14 +39,28 @@ iteration = 0
 visited = 1
 currentLocation_x = start_x
 currentLocation_y = start_y
-direction = [1,0]
+left = [0,-1]
+right = [0,1]
+up = [-1,0]
+down = [1,0]
+direction = up
+
+print(f"Grid Bounds are x: {len(grid[0])}, y:{len(grid)}")
 while seeking == True:
 
     print(f"Current Location is {currentLocation_x},{currentLocation_y}")
-    print(f"Grid Bounds are x: {len(grid[0])}, y:{len(grid)}")
-    if currentLocation_x < 0 or currentLocation_x > len(grid[0]) or currentLocation_y < 0 or currentLocation_y >= len(grid):
+
+    if currentLocation_x < 0 or currentLocation_x >= len(grid[0]) or currentLocation_y < 0 or currentLocation_y >= len(grid):
         seeking = False
     if grid[currentLocation_y][currentLocation_x] == '#':
+        if direction == up:
+            direction = right
+        elif direction == right:
+            direction == down
+        elif direction == down:
+            direction == left
+        elif direction == left:
+            direction == up
         print("Hit Wall")
     currentLocation_x += direction[0]
     currentLocation_y += direction[1]
