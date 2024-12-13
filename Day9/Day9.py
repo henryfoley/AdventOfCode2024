@@ -60,9 +60,9 @@ total = sum(i*int(num) for i,num in enumerate(new_block))
 
 print(f"Final Total: {total}")
 
+
+# u/Ok-Builder-2348's solution off of Reddit. Was using it to test my own
 from collections import deque
-
-
 lengths = [int(num) for num in input]
 
 filled_grid = deque()
