@@ -1,7 +1,7 @@
 # INITIAL THOUGHT PROCESS
 """
 1.) Find '0' trailhead
-2.) Extend frontier of trailheads nine times
+2.) Extend frontier of trailheads
 3.) For each valid path add to a total
 4.) Add total to list for each trailhead
 5.) Sum the total of the list
@@ -26,7 +26,7 @@ import re
 
 # Get contents of text file
 ROOT_DIR = Path(__file__).parent
-TEXT_FILE = ROOT_DIR / "example.txt"
+TEXT_FILE = ROOT_DIR / "input.txt"
 input = TEXT_FILE.read_text()
 
 # Create grid
@@ -51,8 +51,10 @@ for x, row in enumerate(padded_grid):
             trailhead_cords.append([x,y])
 
 # BFS on grid using trailheads
+goal = 9
+total_score = 0
 for trailhead in trailhead_cords:
-    print(f"Trailhead: {trailhead}")
+    score = 0
     frontier = queue.Queue()
     frontier.put(trailhead)
     reached = set()
@@ -60,10 +62,15 @@ for trailhead in trailhead_cords:
 
     while not frontier.empty():
         current = frontier.get()
-        for next in neighbors(grid,current):
-            frontier.put(next)
-            reached.add(tuple(next))
-   
-print(f"First trailhead neighbors: {neighbors(padded_grid,trailhead_cords[0])}")
-print(padded_grid)
-print(trailhead_cords)
+        current_value = padded_grid[current[0]][current[1]]
+        
+        if padded_grid[current[0]][current[1]] == goal:
+            score += 1
+        for next in neighbors(padded_grid,current):
+            next_value = padded_grid[next[0]][next[1]]
+            if tuple(next) not in reached and next_value == current_value + 1:
+                frontier.put(next)
+                reached.add(tuple(next))
+    total_score += score
+
+print (f"Total Score: {total_score}")
